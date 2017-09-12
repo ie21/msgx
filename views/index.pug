@@ -1,0 +1,25 @@
+html
+  head
+    title= title
+  body
+    h1= title
+
+    
+
+    h3= "Testiranje ovako"
+
+
+
+
+    p Ovo je prvi redak PUG-a (ex. Jade) za templating u Express.js frameworku (radnom okviru)
+    p Ovako izgleda drugi redak PUG paragraf notacije.
+
+
+    p=service
+    p=message
+
+
+-
+  var list=message
+each item in list
+  li= item

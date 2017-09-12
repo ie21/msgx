@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+   
+ <!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+   -->
+ <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> 
+ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.js'></script>
+    
+
+
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"></head>
+
+<!-- <script src="/bower_components/socket.io-client/socket.io.js"></script> -->
+    <style type="text/css">
+
+    .clientBox {
+      background-color: blanchedalmond;
+      border: 1px solid black;
+    }
+
+    .dashboard {
+    background-color: yellow;
+    border-color: black;
+    }
+
+
+
+.update-nag{
+  display: inline-block;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  height: 40px;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 10px;
+}
+
+.update-nag:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.update-nag > .update-split{
+  background: #337ab7;
+  width: 33px;
+  float: left;
+  color: #fff!important;
+  height: 100%;
+  text-align: center;
+}
+
+.update-nag > .update-split > .glyphicon{
+  position:relative;
+  top: calc(50% - 9px)!important; /* 50% - 3/4 of icon height */
+}
+.update-nag > .update-split.update-success{
+  background: #5cb85c!important;
+}
+
+.update-nag > .update-split.update-danger{
+  background: #d9534f!important;
+}
+
+.update-nag > .update-split.update-info{
+  background: #5bc0de!important;
+}
+
+
+
+.update-nag > .update-text{
+  line-height: 19px;
+  padding-top: 11px;
+  padding-left: 45px;
+  padding-right: 20px;
+}
+
+
+
+.results-table {
+  background-color: white;
+
+}
+
+
+    </style>
+
+<!-- <script src="/bower_components/socket.io-client/socket.io.js"></script> -->
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+
+  </head>
+
+
+ <body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">msgx</a>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Live Logs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/todo">todo (dev)</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+     <!--     <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+      </div>
+    </nav>
+
+    
+
+<main class="col-sm-9 offset-sm-1 col-md-10  pt-3">
+         
+  <div>
+    <br>
+    <br>
+      <h2>Client Details </h2>
+      <div id="title"></div>
+      <br>
+        <p>
+          
+       </p>
+       
+
+      </div>
+   </div>
+  </div>
+ </div>
+
+<div>
+  
+  <button id="AddNewButton" class="btn-primary" onclick="addClientDetails()">Add New Client Service</button>
+</div>
+
+<div id="addClientDiv"  style="display:none;" class="addClientClas" > 
+
+  <form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Service URL:</label>
+  </div>
+</form>
+
+</div>
+
+
+
+
+<div id="client" class="row">
+  <br>
+</div>
+
+
+
+<br>
+<br>
+
+<table id = "rezultati" class="results-table" style="width:100%; ">
+  <tr class="style: h4">
+    <th>Service</th>
+    <th>Status</th> 
+    <th>Datetime</th>
+  </tr>
+  
+</table>
+ 
+
+<!-- client status cards   -->
+
+</div>
+
+<div id="details">
+
+  <br>
+</div>
+
+    </div>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+
+
+   
+
+
+
+  </body>
+
+<script>
+  
+
+function addClientDetails() {
+   document.getElementById('addClientDiv').style.display = "block";
+   if (true) {}
+}
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+    console.log("warming up...");
+
+
+
+var stringPathName = window.location.pathname;
+var jsonUrl = ""+stringPathName;
+var title = "";
+//  $('#rezultati').empty();
+
+     $.getJSON( "http://localhost:3000/view/details/HANFA", function( jsondata ) {
+      var items = [];
+      $.each( jsondata, function( key, val ) {
+
+         id = jsondata[key].id
+         client = jsondata[key].client;
+         title = client;
+         
+
+         service =  jsondata[key].service;
+        status = jsondata[key].status ;
+        datetime =  jsondata[key].datetime;
+
+        var payload =  "<tr>" + "<td>"  + service + "</td>" + "<td>" + status + "</td>" +  "<td>"  + datetime + "</td>" + "</tr>" ;
+
+         items.push(payload);
+
+         console.log(payload);
+   
+         
+      });
+
+     // $('#title').append($('<h2>').html(client));
+ 
+      $( "<tbody>", {
+         
+            html: items.join( " " )
+              }).appendTo( "#rezultati" );
+
+
+
+      });
+
+
+     
+});
+
+
+
+
+
+</script>
+
+
+
+
+</html>

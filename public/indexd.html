@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.js'></script>
+    
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <style type="text/css">
+      .clientBox {
+    background-color: blanchedalmond;
+    border: 1px solid black;
+    
+
+}
+
+      .dashboard {
+        background-color: yellow;
+        
+        border-color: black;
+      }
+
+
+  body{
+    margin-top:10px;
+    background: #e0e0e0;
+}
+
+.update-nag{
+  display: inline-block;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  height: 40px;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 10px;
+}
+
+.update-nag:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.update-nag > .update-split{
+  background: #337ab7;
+  width: 33px;
+  float: left;
+  color: #fff!important;
+  height: 100%;
+  text-align: center;
+}
+
+.update-nag > .update-split > .glyphicon{
+  position:relative;
+  top: calc(50% - 9px)!important; /* 50% - 3/4 of icon height */
+}
+.update-nag > .update-split.update-success{
+  background: #5cb85c!important;
+}
+
+.update-nag > .update-split.update-danger{
+  background: #d9534f!important;
+}
+
+.update-nag > .update-split.update-info{
+  background: #5bc0de!important;
+}
+
+
+
+.update-nag > .update-text{
+  line-height: 19px;
+  padding-top: 11px;
+  padding-left: 45px;
+  padding-right: 20px;
+}
+
+
+
+    </style>
+
+<!-- <script src="/bower_components/socket.io-client/socket.io.js"></script> -->
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+
+  </head>
+
+
+ <body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">msgx</a>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Live Logs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/todo">todo (dev)</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+     <!--     <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        </form>
+      </div>
+    </nav>
+
+    
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-1 pt-3">
+         
+  <div>
+    <br>
+    <br>
+      <h1>
+       msgx 
+      </h1>
+        <p>
+          Made to notify<br>
+          schedulled tasks, scripts, programs, batch files etc.
+       </p>
+       
+
+  </div>
+
+
+                                <p>Describe the action here.</p>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+        </div>
+  <div class="row">
+    <div class="col-xs-6 col-md-12">
+      <h3>Timeline</h1>
+    </div>
+  </div>
+
+
+<!-- vis.js timeline <div> -->
+
+<div id="visualization"></div>
+
+
+
+
+<div id="counter">
+  <br>
+  <br>
+</div>
+
+<div class="row">
+
+
+        
+
+ 
+
+ <!--       
+  </div><!-/row-
+</div> <!-/container -->
+
+
+<!-- dashboard: real time stats  -->
+
+<div class="container">
+  <h3 class="row card-header primary-color white-text"">Real Time Stats</h3>
+  <dir class="row">
+    
+
+  <div class="col-xs-6 col-md-6 card text-center ">
+    <!-- Average -->
+    <h3 class="card-title"">Average</h3>
+    
+      <div id="counterBig">
+      
+      </div>
+  </div>
+
+
+    <div class="col-xs-6 col-md-6 card text-center ">
+    <!-- Average -->
+    <h3 class="card-title"">Warnings (24h)</h3>
+    
+      <div id="counterBig">
+      
+      </div>
+  </div>
+
+  </dir>
+
+
+
+
+</div> <!-- container  -->
+
+<br>
+<br>
+
+<div class="container">
+  
+
+
+  <div class="card-header primary-color white-text"><h3>Clients status:</h3> </div>
+<div id = "clientList" class = "card">
+</div>
+
+
+</div>
+
+<div id="clientListclient"></div>
+
+
+<p>
+ 
+</p>
+<div id="msgCnt" style="background-color: #0066ff; color: white; " >
+</div>
+
+
+
+
+</div>
+
+<div id="logline">
+  <h3>Logline</h3>
+  <div id="logline1"></div>
+
+  <br>
+</div>
+<div>
+  
+
+      
+      </div>
+    </div>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+
+
+   
+
+
+
+  </body>
+
+<script>
+  
+
+
+     $.getJSON( "http://localhost:3000/latest", function( data ) {
+      var items = [];
+
+      $.each( data, function( key, val ) {
+         items.push( "<p>" + val + "</p>" );
+      });
+ 
+      $( "<tr/>", {
+         "class": "my-new-list",
+            html: items.join( "" )
+              }).appendTo( "#LatestDiv" );
+      });
+
+
+ $.getJSON( "http://localhost:3000/count", function( data1 ) {
+      var items = [];
+      $.each( data1, function( key, val ) {
+         items.push( "<h4>Total messages in DB: " + val + "</h4>" );
+      });
+ 
+      $( "<p/>", {
+         "class": "h1",
+            html: items.join( "**" )
+              }).appendTo( "#counter" );
+      });
+
+
+
+
+var socket = io.connect('http://localhost:3020');
+
+
+socket.on('logline', function (msg) {
+    console.log(msg);
+      //$('#logline1').prepend($('<tr>').text(msg));
+      var returnString = (msg)
+      var jsondata = $.parseJSON(returnString);
+
+
+
+      id = "<b>" + jsondata.id + "</b>";
+      client = "<b>" + jsondata.client + "</b>" ;
+      service = jsondata.service;
+      status = jsondata.status;
+
+
+      datetime = "(" + jsondata.datetime + ")";
+
+      clientDiv = '#client'+'-'+jsondata.client;
+
+       $('#counterBig').empty().append($('<h2>').html(id));
+
+       $('#logline1').empty();
+      // $('#logline1').prepend($('<tr>').html(id + client + service + status + datetime));
+/*
+//      if (status == "completed") {
+//        var sicon = "/public/success-icon.png"
+//        markdown = "<em><img src=" + sicon +" >";
+//      } 
+
+//      if (status = "started") {
+ //       var sicon = "/public/started.png";
+  //      markdown = "<em><img src=" + sicon +" >";
+   //   }
+*/
+/*
+    $(clientDiv).empty();
+
+    // DIV Content 
+    $(clientDiv).append($('<h4 style="color:#006699">').html(client));
+    $(clientDiv).append($('<em>').html("Service "  + "<b>"+service+"</b>"));
+
+
+    $(clientDiv).append($('<em>').html(" "  + "<b>"+status+"</b>" + markdown));
+    $(clientDiv).append($('<em>').html(" on "  + datetime + "</p>"));
+   // $(clientDiv).append($('<p>').text("ic:" +markdown);
+
+*/
+});
+
+
+$(document).ready(function () {
+    console.log("warming up...");
+
+    $.getJSON("http://localhost:3000/clientlist", function (data) {
+        var length = data.length;
+
+        for(var i = 0; i < length; i++){
+          $.each(data[i], function (key, obj) {
+              console.log(key, obj)
+              $('<div />', {
+                id: key + "-" + obj,
+                text: obj,
+                class: "col-md-8"
+              }).appendTo('#clientList')       
+          }); 
+        }
+    }); 
+
+    $.getJSON("http://localhost:3000/clientLastSync", function (data) {
+        var length = data.length;
+
+        for(var i = 0; i < length; i++){                                                
+          $.each(data[i], function (key, obj) {
+              console.log(key, obj)
+                  $('<div />', {
+                    id: key,
+                    text: obj,
+                   class: " col-xs-3 col-md-4"
+              }).appendTo("#client" + "-" + obj)                 
+          }); 
+        }
+    }); 
+});
+
+
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+
+// DOM element where the Timeline will be attached
+  var container = document.getElementById('visualization');
+
+  // Create a DataSet (allows two way data-binding)
+  
+  var items = new vis.DataSet([
+    {id: 1, content: 'item 1', start: '2013-04-20'},
+    {id: 2, content: 'item 2', start: '2013-04-14'},
+    {id: 3, content: 'item 3', start: '2013-04-18'},
+    {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
+    {id: 5, content: 'item 5', start: '2013-04-25'},
+    {id: 6, content: 'item 6', start: '2013-04-27'}
+  ]);
+
+  // Configuration for the Timeline
+  var options = {};
+
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+    
+
+
+
+/*
+var timeline = new vis.Timeline(container, items, options);
+
+
+socket.on('logline', function (msg) {
+    console.log(msg);
+      //$('#logline1').prepend($('<tr>').text(msg));
+      var returnString = (msg)
+      var jsondata = $.parseJSON(returnString);
+
+      contentjson = jsondata.status + jsondata.service;
+
+}); */
+
+</script>
+
+
+</html>
