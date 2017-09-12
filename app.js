@@ -4,6 +4,8 @@
 
 */
 
+
+// Requirements 
 var pug = require("pug")
 var express = require("express");
 var app = express();
@@ -17,18 +19,14 @@ var maxID = 0;
 
 var currentTime=new Date();
 
-
-
 // Slack variables
-
 var slack = new Slack();
 var webhookUri = "https://hooks.slack.com/services/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";
-
 slack.setWebhook(webhookUri);
-
 var slackChannel = "#general"
-// SQLite3 database variables 
 
+
+// SQLite3 database variables 
 var db = new sqlite3.Database('/privat/testDB.db');
 
 
@@ -36,7 +34,7 @@ var db = new sqlite3.Database('/privat/testDB.db');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
 
-// Consol logiranje requesta
+// Console logiranje requesta
 router.use(function (req,res,next) {
   console.log("[>>] " + currentTime + "[>>] Request /" + req.method);
   next();
@@ -163,9 +161,7 @@ router.get("/view/details/:client",function(req,res){
 	})
 });
 
-
-
-
+// About link 
 router.get("/about",function(req,res){
   res.sendFile(__dirname + "/public/about.html");
 });
