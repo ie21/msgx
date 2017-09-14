@@ -25,10 +25,8 @@ var webhookUri = "https://hooks.slack.com/services/T47KB8NUT/B48CA9DHD/jjuoKgduY
 slack.setWebhook(webhookUri);
 var slackChannel = "#general"
 
-
 // SQLite3 database variables 
-var db = new sqlite3.Database('/privat/testDB.db');
-
+var db = new sqlite3.Database('privat/testDB.db');
 
 // View templating engine
 app.set('views', __dirname + '/views');
@@ -40,7 +38,6 @@ router.use(function (req,res,next) {
   next();
 });
 
-
 var io = socketio.listen('3020', function (err, msg) {
     if (err) {
         console.error(err);
@@ -51,7 +48,6 @@ io.on('connection', function (socket) {
      console.log('[>>] Client connected');
     socket.on('disconnect', function () {
         console.log('[>>] Client disconnected');
-
     });
 });
 
@@ -60,7 +56,6 @@ router.get("/",function(req,res){
 	res.sendFile(__dirname + "/public/index.html");
 	console.log("[>>] " + currentTime + "Requested -- index.html");
 });
-
 
 // Request counter API 
 // GET /requestCount to recieve number of total requests in log
@@ -77,14 +72,11 @@ router.get("/requestCount", function(req, res){
 
 // TOP 5 in log API 
 router.get("/latest", function(req, res){
-	var value = [];
 	db.serialize(function () {
-		
-		db.get("select *" +  
-			  +"from log " + 
-			  +"where id is not null" +
-			  +"order by id desc limit 3", 
-
+		db.get("SELECT *" +  
+			  +"FROM log " + 
+			  +"WHERE id IS NOT null" +
+			  +"ORDER BY id DESC LIMIT 3", 
 			  function(err, row){
 				if(err) throw err;
 				console.log(err);
@@ -98,9 +90,8 @@ router.get("/latest", function(req, res){
 // > GET /ClientList 
 // < returns unique client list alphabetically
 router.get("/clientList", function(req, res){
-	var value = [];
 	db.serialize(function () {
-		db.all("select distinct client from log order by client", function(err, row){
+		db.all("SELECT DISTINCT client FROM log ORDER BY client", function(err, row){
 		if(err) throw err;
 		console.log(err);
 		//res.setHeader('Content-Type', 'application/json');  
@@ -110,7 +101,6 @@ router.get("/clientList", function(req, res){
 })
 
 router.get("/clientLastSync", function(req, res){
-	var value = [];
 	db.serialize(function () {
 		db.all("select * from log where service not like \"test\" order by id desc limit 100", function(err, row){
 		if(err) throw err;
@@ -120,9 +110,6 @@ router.get("/clientLastSync", function(req, res){
 		})		
 	})
 })
-
-
-
 
 
 router.get("/details/:client",function(req,res){
@@ -137,8 +124,6 @@ router.get("/details/:client",function(req,res){
 
 	// // get from database? 
 	// db.serialize(function () {
-		
-
 	// })
 });
 
@@ -165,8 +150,6 @@ router.get("/view/details/:client",function(req,res){
 router.get("/about",function(req,res){
   res.sendFile(__dirname + "/public/about.html");
 });
-
-
 
 
 // Registriraj CLIENT, SERVICE i STATUS 
@@ -199,7 +182,8 @@ router.get("/api/:client/:service/:status",function(req,res)
 		db.each(query, function (err, row) {
 	  		if(err) throw err;
 	  		console.log("[>>] SQL:  " + query)
-    		console.log(row);
+			// log input SQL values 
+	  //	console.log(row);
 			var x = JSON.stringify(row);
     		io.emit('logline', JSON.stringify(row));
     		}); 
@@ -215,7 +199,9 @@ router.get("/api/:client/:service/:status",function(req,res)
 
 		})
 
-
+		// API za provjeru backupa u posljednja 24 sata 
+		// izdvojiti u posebnu funkciju koja listena server kada ima novosti 
+		// a.k.a. subscription // sada se vrti pri svakom insertu i osvježi stats 
 		db.all("SELECT id as t FROM LOG WHERE ID IS NOT NULL limit 1", function(err, row) {
 			if (err) throw err;
 			console.log("[>>] postotak backupa u zadnja 24 sata: " + JSON.stringify(row));
@@ -235,7 +221,6 @@ router.get("/api/:client/:service/:status",function(req,res)
 	// Server console logiranje
   	console.log("[>>] " + currentTime + " -- Client: " + req.params.client + ' Service: ' + req.params.service + ' Message: ' + req.params.status);
 
-
   	// Slack notifikacija po API update-u
   	slack.webhook({
   		channel: slackChannel,
@@ -247,13 +232,10 @@ router.get("/api/:client/:service/:status",function(req,res)
 
 })
 
-
-
-
 app.use(express.static('public'));
 app.use("/",router);
 
-app.set('view engine', 'pug');
+//app.set('view engine', 'pug');
 
 app.use("/error",function(req,res){
   res.sendFile(__dirname + "/public/404.html");
@@ -274,9 +256,7 @@ router.post('/post', function(req, res, next){
 
 
 app.listen(3000,function(){
-  console.log( dateNow() + " -- Live at Port 3000 ");
-
-
+  console.log("[>>] " + currentTime + " -- Live at Port 3000 ");
 });
 
 // datumi 
