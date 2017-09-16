@@ -38,12 +38,15 @@ router.use(function (req,res,next) {
   next();
 });
 
+
+// Open listener 
 var io = socketio.listen('3020', function (err, msg) {
     if (err) {
         console.error(err);
     }
 });
 
+// logging connection 
 io.on('connection', function (socket) {
      console.log('[>>] Client connected');
     socket.on('disconnect', function () {
@@ -100,6 +103,7 @@ router.get("/clientList", function(req, res){
 	})
 })
 
+// last client to get in touch
 router.get("/clientLastSync", function(req, res){
 	db.serialize(function () {
 		db.all("select * from log where service not like \"test\" order by id desc limit 100", function(err, row){
@@ -130,7 +134,6 @@ router.get("/details/:client",function(req,res){
 router.get("/view/details/:client",function(req,res){
 
 	console.log(dateNow() + " -- clientDetails.html + db query");
-
 	var db_query = "SELECT * FROM LOG WHERE CLIENT =\'" + req.params.client +"\' ORDER BY ID DESC LIMIT 25"
 	console.log(db_query)
 	db.serialize(function () {
